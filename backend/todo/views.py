@@ -78,10 +78,9 @@ def FoodApi(request:HttpRequest, id=0):
         # return JsonResponse("Failed to Add", safe=False)
     elif request.method == 'PUT':
         food_data = JSONParser().parse(request)
-        food = Foods.objects.get(id = food_data['id'])
-        foods_serializers = FoodsSerializer(food, data=food_data)
-        if foods_serializers.is_valid():
-            foods_serializers.save()
+        food = Foods.objects.get(id = int(food_data['id']))
+        foods_serializers = FoodsSerializer(food, data=food_data).update(food, food_data)
+        if foods_serializers:
             return JsonResponse("Update Successfully", safe=False)
         return JsonResponse("Failed to Update")
     elif request.method == 'DELETE':

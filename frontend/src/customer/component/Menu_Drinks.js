@@ -2,17 +2,53 @@ import Item from "./Item";
 import "../css/box.css"
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-
+const DrinkType = [
+    { id: 3, name: "Nước ép" },
+    { id: 4, name: "Trà Sữa" },
+    { id: 5, name: "Trà" },
+    { id: 6, name: "Chè" }
+]
 const Menu = ({ name, desc, price, addItem }) => {
     const [data, setData] = useState([]);
 
+    const [filter, setFilter] = useState([]);
+    function handleFilter(e) {
+        if (e.target.checked) {
+            setFilter(
+                [...filter,
+                e.target.value
+                ])
+        } else {
+            setFilter(filter.filter(a => a != e.target.value))
+        }
+    }
     useEffect(() => {
+        let query = ''
+        if (!filter.length) query = 'type=3&type=4&type=5&type=6';
+        else filter.forEach(type => query += `type=${type}&`)
         axios
-            .get("/api/food?type=2")
+            .get(`/api/food?${query}`)
             .then((res) => setData(res.data));
-    }, [])
+    }, [filter])
 
-    return (
+    return (<>
+        <section
+            className="filters" style={{ textAlign: 'right' }}>
+            <ul>
+                {DrinkType.map((type, index) => (
+                    <li key={index}>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value={type.id}
+                                onChange={handleFilter}
+                            />
+                            {type.name}
+                        </label>
+                    </li>
+                ))}
+            </ul>
+        </section>
         <section className="features-boxed">
             <div className="container">
                 <div className="intro">
@@ -34,6 +70,7 @@ const Menu = ({ name, desc, price, addItem }) => {
                 </div>
             </div>
         </section>
+    </>
     );
 };
 

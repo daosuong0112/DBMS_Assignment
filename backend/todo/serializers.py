@@ -11,6 +11,18 @@ class FoodsSerializer(serializers.ModelSerializer):
         model = Foods
         fields = ('id', 'name', 'info', 'qty_day', 'image', 'category_id', 'price', 'cost')
 
+    def update(self, instance, validated_data): 
+        instance.id = validated_data.get('id', instance.id)
+        instance.name = validated_data.get('name', instance.name)
+        instance.info = validated_data.get('info', instance.info)
+        instance.qty_day = validated_data.get('qty_day', instance.qty_day)
+        instance.image = validated_data.get('image', instance.image)
+        instance.category_id = Category(validated_data.get('category_id', instance.category_id))
+        instance.price = validated_data.get('price', instance.price)
+        instance.cost = validated_data.get('cost', instance.cost)
+        instance.save()
+        return instance
+
 class TableSerializer(serializers.ModelSerializer):
     class Meta:
         model = Table

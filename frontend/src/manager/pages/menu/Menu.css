@@ -41,3 +41,6 @@
 .type_button {
     padding-left: 12cm;
 }
+.input-group-text{
+    width: 100px;
+}

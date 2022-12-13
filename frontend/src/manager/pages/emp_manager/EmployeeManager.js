@@ -1,8 +1,7 @@
 import Tables from "./Tables"
 import { Table } from "react-bootstrap"
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import React from 'react';
-import axios from 'axios';
 
 const POSITIONS = [
   "Quản lý", 
@@ -20,7 +19,7 @@ const EManager = () => {
         e.target.value
       ])
     } else {
-      setFilter(filter.filter(a => a != e.target.value))
+      setFilter(filter.filter(a => a !== e.target.value))
     }
   }
 
@@ -35,7 +34,7 @@ const EManager = () => {
             <label>
               <input 
                 type="checkbox"
-                value={(position == "Quản lý" ? "'M'" : (position == "Shipper" ? "'S'" : "'R'"))} 
+                value={(position === "Quản lý" ? "'M'" : (position === "Shipper" ? "'S'" : "'R'"))} 
                 onChange={handleFilter}
                 />
               {position}
