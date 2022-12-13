@@ -18,6 +18,7 @@ const EditFoodModal = ({ item, show, handleClose }) => {
     }
     else {
       let form_data = new FormData();
+
       form_data.append('id', id);
       form_data.append('name', name);
       form_data.append('info', info);
@@ -35,7 +36,7 @@ const EditFoodModal = ({ item, show, handleClose }) => {
           'content-type': 'multipart/form-data'
         }
       })
-      .catch(err => console.error(err));
+        .catch(err => console.error(err));
       handleClose();
     }
   }
@@ -126,10 +127,7 @@ const EditFoodModal = ({ item, show, handleClose }) => {
           </div>
           <div className="col-sm-12" >
             <div className="menu_image" style={{ textAlign: 'center' }}>
-              {/* {image && <button type='button' style={{ position: 'absolute', marginLeft: '35%', border: 'none' }} onClick={() => setImage('')} > <i className='fa fa-times'></i> </button>}
-              {!image && <input type="file" id="image" required />} */}
               <img src={image} style={{ display: item ? 'block' : 'none', marginLeft: '20%', width: '50%', height: '50%', textAlign: 'center' }} alt={''} width='80%' height='80%' />
-
             </div>
           </div>
         </div>

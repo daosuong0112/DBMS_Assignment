@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Menu from './component/Menu_Foods';
 
 export class Foods extends Component {
     render() {
-        return(
+        return (
             <div>
-                <Menu name="Đồ ăn" desc="Delicious food is here"/>
+                <Menu name="Đồ ăn" desc="Delicious food is here" />
             </div>
         )
     }

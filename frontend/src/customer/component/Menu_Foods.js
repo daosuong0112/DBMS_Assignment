@@ -4,27 +4,26 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 const FoodType = [
     "Món chính",
-    "Món ăn vặt"
+    "Món ăn vặt",
+    "Tất cả"
 ]
 
-const Menu = ({ name, desc, price, addItem }) => {
+const Menu = ({ name, desc }) => {
     const [data, setData] = useState([]);
-
-    const [filter, setFilter] = useState([]);
-    function handleFilter(e) {
-        if (e.target.checked) {
-            setFilter(
-                [...filter,
-                parseInt(e.target.value)
-                ])
-        } else {
-            setFilter(filter.filter(a => a != parseInt(e.target.value)))
+    const [filter, setFilter] = useState('');
+    function handleFilter(type) {
+        if (type == "Món chính") {
+            setFilter(1)
         }
+        else if (type == "Món ăn vặt") {
+            setFilter(2)
+        }
+        else setFilter('')
     }
     useEffect(() => {
         let query = ''
-        if (!filter.length) query = 'type=1&type=2';
-        else filter.forEach(type => query += `type=${type}&`)
+        if (!filter) query = 'type=1&type=2';
+        else query = `type=${filter}`
         axios
             .get(`/api/food?${query}`)
             .then((res) => setData(res.data));
@@ -36,14 +35,7 @@ const Menu = ({ name, desc, price, addItem }) => {
                 <ul>
                     {FoodType.map(type => (
                         <li key={type}>
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    value={type == "Món chính" ? 1 : 2}
-                                    onChange={handleFilter}
-                                />
-                                {type}
-                            </label>
+                        <button className="btn btn-info" id={type} onClick={() => handleFilter(type)}> {type}</button>
                         </li>
                     ))}
                 </ul>

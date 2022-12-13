@@ -2,10 +2,11 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
-const Tables = ({ begin }) => {
+const Tables = ({ begin , end }) => {
   const [data, setData] = useState([]);
   const [res, setRes] = useState(true);
   const url = "http://localhost:8000/api/reservation";
+
 
   function handleDelete(e) {
     if (window.confirm('Bạn có chắc muốn xóa không?')) {
@@ -18,9 +19,9 @@ const Tables = ({ begin }) => {
 
   useEffect(() => {
     axios
-      .get(`/api/reservation?begin=${begin}`)
+      .get(`/api/reservation?begin=${begin}&end=${end}`)
       .then((res) => setData(res.data));
-  }, [begin, res])
+  }, [begin,end, res])
   return (
     <>
       {data.map(row =>

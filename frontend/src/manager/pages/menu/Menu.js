@@ -64,7 +64,9 @@ class Menu extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+
     if (!this.state.name || !this.state.qty_day || !this.state.image || !this.state.category_id || !this.state.cost || !this.state.price) {
+      console.log(this.state.image);
       alert('Chưa điền đầy đủ thông tin');
     }
     else {
@@ -178,7 +180,7 @@ class Menu extends Component {
                     {this.state.image && <button type='button' style={{ position: 'absolute', marginLeft: '35%', border: 'none' }} onClick={() => this.setState({ image: null })}> <i className='fa fa-times'></i> </button>}
                     {!this.state.image && <input type="file" id="image" onChange={this.handleImageChange} required />}
                     <img src={this.state.image ? URL.createObjectURL(this.state.image) : ''} style={{ display: this.state.image ? 'block' : 'none', marginTop: '10%', marginLeft: '10%', width: '70%', height: '80%' }} alt={this.state.image} width='80%' height='80%' />
-            
+
                   </div>
                 </div>
               </div>
@@ -232,7 +234,7 @@ class Menu extends Component {
             </Table>
           </div>}
         </form>
-        <EditFoodModal show={this.state.show} handleClose={this.handleClose} item={this.state.editItem}/>
+        <EditFoodModal show={this.state.show} handleClose={this.handleClose} item={this.state.editItem} />
       </div>
     );
   }

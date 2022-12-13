@@ -1,15 +1,17 @@
 import Tables from "./Tables"
 import { Table } from "react-bootstrap"
-import React from 'react';
+import React, { useState } from 'react';
 
 const ManageTable = () => {
+  const [begin, setBegin] = useState('2022-01-01'),
+    [end, setEnd] = useState('2024-12-30');
   return (
     <>
       <h1 className="fw-bold p-3">Danh sách đặt bàn</h1>
       <div className="p-5 text-center">
         <div className="float-right m-3">
-          Từ <input type="date" style={{margin: "0 10px"}}></input>
-          đến <input type="date" style={{margin: "0 10px"}}></input>
+          Từ <input type="date" style={{ margin: "0 10px" }} onChange={e => setBegin(e.target.value)} ></input>
+          đến <input type="date" style={{ margin: "0 10px" }} onChange={e => setEnd(e.target.value)} ></input>
         </div>
         <Table striped bordered hover>
           <thead>
@@ -24,7 +26,7 @@ const ManageTable = () => {
             </tr>
           </thead>
           <tbody>
-            <Tables />
+            <Tables begin={begin} end={end} />
           </tbody>
         </Table>
       </div>
