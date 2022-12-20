@@ -4,3 +4,4 @@ note.txt
 *.pyc
 backend/helper*
 backend/Makefile
+backend/sql_text
